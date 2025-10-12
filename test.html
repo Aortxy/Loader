@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test Post to Groupsor</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; color:#111}
+    body{max-width:820px;margin:32px auto;padding:20px;background:#f7f8fb;border-radius:10px;box-shadow:0 6px 24px rgba(13,38,76,0.08)}
+    h1{font-size:18px;margin:0 0 12px}
+    form{display:grid;gap:10px}
+    label{font-size:13px;color:#333}
+    input[type="text"], textarea, select{
+      width:100%;padding:10px;border:1px solid #d8dde6;border-radius:8px;background:#fff;font-size:14px;
+    }
+    textarea{min-height:100px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;border:0;background:#0366d6;color:#fff;font-weight:600;cursor:pointer}
+    .btn:disabled{opacity:.5;cursor:default}
+    pre{white-space:pre-wrap;background:#0b1220;color:#cfe8ff;padding:12px;border-radius:8px;overflow:auto;font-size:13px}
+    .note{font-size:12px;color:#555;margin-top:6px}
+  </style>
+</head>
+<body>
+  <h1>Test Submit Group → groupsor.link</h1>
+
+  <form id="tg">
+    <label>WhatsApp Invite Link (glink)</label>
+    <input id="glink" type="text" placeholder="https://chat.whatsapp.com/..." required />
+
+    <div class="row">
+      <div>
+        <label>Category (name or id) (gcid)</label>
+        <input id="gcid" type="text" placeholder="Social/Friendship/Community or 30" required />
+      </div>
+      <div>
+        <label>Country (name or id) (cid)</label>
+        <input id="cid" type="text" placeholder="Indonesia or 30" required />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Language (name or id) (lid)</label>
+        <input id="lid" type="text" placeholder="Indonesian or 3" required />
+      </div>
+      <div>
+        <label>Tags (comma separated)</label>
+        <input id="tags" type="text" placeholder="Friendship,Chat,Indonesia" />
+      </div>
+    </div>
+
+    <label>Description (gdesc)</label>
+    <textarea id="gdesc" placeholder="Grup ngobrol santai..."></textarea>
+
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="submitBtn" class="btn" type="submit">Submit to groupsor.link</button>
+      <button id="clearBtn" type="button" style="background:#e6eefc;color:#0366d6;border-radius:8px;padding:10px 12px;border:0;cursor:pointer">Clear</button>
+    </div>
+
+    <p class="note">Response / server HTML:</p>
+    <pre id="out">-</pre>
+    <p class="note">Tip: If you run into CORS issues when testing directly from browser, run this form from a small local server or call your Node endpoint that proxies the request.</p>
+  </form>
+
+  <script>
+    const form = document.getElementById('tg');
+    const out = document.getElementById('out');
+    const btn = document.getElementById('submitBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    const KEY = 'zxjQq+CpDVqVjdabsbh6ZRbG6k5UOo7EX3XZOp/CfLbDxl9+fXoSTrN2EXOsG5V5';
+    const TARGET = 'https://groupsor.link/data/addgroup';
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      btn.disabled = true;
+      out.textContent = 'Sending...';
+
+      const glink = document.getElementById('glink').value.trim();
+      const gcid  = document.getElementById('gcid').value.trim();
+      const cid   = document.getElementById('cid').value.trim();
+      const lid   = document.getElementById('lid').value.trim();
+      const tags  = document.getElementById('tags').value.trim();
+      const gdesc = document.getElementById('gdesc').value.trim();
+
+      const params = new URLSearchParams();
+      params.append('glink', glink);
+      params.append('gcid', gcid);
+      params.append('cid', cid);
+      params.append('lid', lid);
+      params.append('tags', tags);
+      params.append('gdesc', gdesc);
+      params.append('key', KEY);
+
+      try {
+        const res = await fetch(TARGET, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params.toString(),
+          credentials: 'include' // browser will only send cookies for same-origin; kept for completeness
+        });
+
+        const text = await res.text();
+        out.textContent = 
+          `HTTP ${res.status} ${res.statusText}\n\n` + text.slice(0, 20000);
+
+        // try to detect success/failure quickly
+        if (/alert-success|success|submitted/i.test(text)) {
+          out.textContent = '✅ Looks like success (detected success phrase)\n\n' + out.textContent;
+        } else if (/alert-danger|error|failed/i.test(text)) {
+          out.textContent = '⚠️ Detected error phrase in response\n\n' + out.textContent;
+        }
+      } catch (err) {
+        out.textContent = 'Fetch error: ' + err.message;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      document.getElementById('glink').value = '';
+      document.getElementById('gcid').value = '';
+      document.getElementById('cid').value = '';
+      document.getElementById('lid').value = '';
+      document.getElementById('tags').value = '';
+      document.getElementById('gdesc').value = '';
+      out.textContent = '-';
+    });
+  </script>
+</body>
+</html>
+  
