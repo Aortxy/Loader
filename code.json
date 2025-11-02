@@ -1,0 +1,36 @@
+
+[
+  {
+    "id": "qwen-ai",
+    "title": "Qwen AI",
+    "fileName": "qwen-ai.js",
+    "baseUrl": "https://chat.qwen.ai/",
+    "code": "const axios = require('axios');\nconst crypto = require('crypto');\n\nclass Qwen {\n    constructor({ email, password }) {\n        if (!email) throw new Error('Email is required.');\n        if (!password) throw new Error('Password is required.');\n\n        this.api = axios.create({\n            baseURL: 'https://chat.qwen.ai/api',\n            headers: {\n                'Bx-V': '2.5.31',\n                'Connection': 'keep-alive',\n                'Host': 'chat.qwen.ai',\n                'Origin': 'https://chat.qwen.ai',\n                'Referer': 'https://chat.qwen.ai/',\n                'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',\n                'Version': '0.0.230',\n                'X-Request-Id': crypto.randomUUID()\n            }\n        });\n\n        this.types = {\n            chat: 'txt',\n            search: 'search',\n            thinking: 'think'\n        };\n    }\n}",
+    "tags": ["ai", "scrape"],
+    "month": "October 2025",
+    "createdAt": "2025-10-18T10:00:00.000Z",
+    "updatedAt": "2025-10-18T10:00:00.000Z"
+  },
+  {
+    "id": "ai-chat",
+    "title": "AI Chat",
+    "fileName": "ai-chat.js",
+    "baseUrl": "https://chatgptfree.ai/",
+    "code": "console.log('AI Chat Snippet');",
+    "tags": ["ai", "scrape"],
+    "month": "October 2025",
+    "createdAt": "2025-10-18T09:00:00.000Z",
+    "updatedAt": "2025-10-18T09:00:00.000Z"
+  },
+  {
+    "id": "sora-2",
+    "title": "Sora 2",
+    "fileName": "sora-2.js",
+    "baseUrl": "https://bylo.ai/features/sora-2",
+    "code": "console.log('Sora 2 Snippet');",
+    "tags": ["ai", "scrape"],
+    "month": "October 2025",
+    "createdAt": "2025-10-16T14:00:00.000Z",
+    "updatedAt": "2025-10-16T14:00:00.000Z"
+  }
+]

@@ -1,0 +1,16 @@
+
+[
+  { "id": "1", "name": "ai" },
+  { "id": "2", "name": "scrape" },
+  { "id": "3", "name": "detail" },
+  { "id": "4", "name": "downloader" },
+  { "id": "5", "name": "func" },
+  { "id": "6", "name": "api" },
+  { "id": "7", "name": "database" },
+  { "id": "8", "name": "frontend" },
+  { "id": "9", "name": "backend" },
+  { "id": "10", "name": "auth" },
+  { "id": "11", "name": "utils" },
+  { "id": "12", "name": "testing" },
+  { "id": "13", "name": "devops" }
+]
