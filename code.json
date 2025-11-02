@@ -59,11 +59,7 @@ async function aichat(question, { model = 'gpt-5-nano' } = {}) {
     } catch (error) {
         throw new Error(error.message);
     }
-};
-
-// Usage:
-const resp = await aichat('hai! model ai apa yang kamu gunakan?', { model: 'claude' }):
-console.log(resp);",
+};",
     "tags": ["Ai"],
     "month": "November 2025",
     "createdAt": "2025-10-18T09:00:00.000Z",
