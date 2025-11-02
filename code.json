@@ -6,8 +6,8 @@
     "fileName": "qwen-ai.js",
     "baseUrl": "https://chat.qwen.ai/",
     "code": "const axios = require('axios');\nconst crypto = require('crypto');\n\nclass Qwen {\n    constructor({ email, password }) {\n        if (!email) throw new Error('Email is required.');\n        if (!password) throw new Error('Password is required.');\n\n        this.api = axios.create({\n            baseURL: 'https://chat.qwen.ai/api',\n            headers: {\n                'Bx-V': '2.5.31',\n                'Connection': 'keep-alive',\n                'Host': 'chat.qwen.ai',\n                'Origin': 'https://chat.qwen.ai',\n                'Referer': 'https://chat.qwen.ai/',\n                'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',\n                'Version': '0.0.230',\n                'X-Request-Id': crypto.randomUUID()\n            }\n        });\n\n        this.types = {\n            chat: 'txt',\n            search: 'search',\n            thinking: 'think'\n        };\n    }\n}",
-    "tags": ["ai", "scrape"],
-    "month": "October 2025",
+    "tags": ["Ai"],
+    "month": "November 2025",
     "createdAt": "2025-10-18T10:00:00.000Z",
     "updatedAt": "2025-10-18T10:00:00.000Z"
   },
@@ -16,9 +16,56 @@
     "title": "AI Chat",
     "fileName": "ai-chat.js",
     "baseUrl": "https://chatgptfree.ai/",
-    "code": "console.log('AI Chat Snippet');",
-    "tags": ["ai", "scrape"],
-    "month": "October 2025",
+    "code": "const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
+
+async function aichat(question, { model = 'gpt-5-nano' } = {}) {
+    try {
+        const _model = {
+            'gpt-4o-mini': '25865',
+            'gpt-5-nano': '25871',
+            'gemini': '25874',
+            'deepseek': '25873',
+            'claude': '25875',
+            'grok': '25872',
+            'meta-ai': '25870',
+            'qwen': '25869'
+        };
+        
+        if (!question) throw new Error('Question is required.');
+        if (!_model[model]) throw new Error(`Available models: ${Object.keys(_model).join(', ')}.`);
+        
+        const { data: html } = await axios.post(`https://px.nekolabs.my.id/${encodeURIComponent('https://chatgptfree.ai/')}`);
+        const nonce = html.data.content.match(/&quot;nonce&quot;\s*:\s*&quot;([^&]+)&quot;/);
+        if (!nonce) throw new Error('Nonce not found.');
+        
+        const { data } = await axios.post(`https://px.nekolabs.my.id/${encodeURIComponent('https://chatgptfree.ai/wp-admin/admin-ajax.php')}`, new URLSearchParams({
+            action: 'aipkit_frontend_chat_message',
+            _ajax_nonce: nonce[1],
+            bot_id: _model[model],
+            session_id: uuidv4(),
+            conversation_uuid: uuidv4(),
+            post_id: '6',
+            message: question
+        }).toString(), {
+            headers: {
+                origin: 'https://chatgptfree.ai',
+                referer: 'https://chatgptfree.ai/',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 15; SM-F958 Build/AP3A.240905.015) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36'
+            }
+        });
+        
+        return data.data.content.data.reply;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+// Usage:
+const resp = await aichat('hai! model ai apa yang kamu gunakan?', { model: 'claude' }):
+console.log(resp);",
+    "tags": ["Ai"],
+    "month": "November 2025",
     "createdAt": "2025-10-18T09:00:00.000Z",
     "updatedAt": "2025-10-18T09:00:00.000Z"
   },
