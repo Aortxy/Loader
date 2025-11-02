@@ -17,9 +17,7 @@
     "fileName": "ai-chat.js",
     "baseUrl": "https://chatgptfree.ai/",
     "code": "const axios = require('axios');
-const { v4: uuidv4 } = require('uuid');
-
-async function aichat(question, { model = 'gpt-5-nano' } = {}) {
+const { v4: uuidv4 } = require('uuid');\nasync function aichat(question, { model = 'gpt-5-nano' } = {}) {
     try {
         const _model = {
             'gpt-4o-mini': '25865',
@@ -31,14 +29,14 @@ async function aichat(question, { model = 'gpt-5-nano' } = {}) {
             'meta-ai': '25870',
             'qwen': '25869'
         };
-        
+        \n
         if (!question) throw new Error('Question is required.');
         if (!_model[model]) throw new Error(`Available models: ${Object.keys(_model).join(', ')}.`);
-        
+        \n
         const { data: html } = await axios.post(`https://px.nekolabs.my.id/${encodeURIComponent('https://chatgptfree.ai/')}`);
         const nonce = html.data.content.match(/&quot;nonce&quot;\s*:\s*&quot;([^&]+)&quot;/);
         if (!nonce) throw new Error('Nonce not found.');
-        
+        \n
         const { data } = await axios.post(`https://px.nekolabs.my.id/${encodeURIComponent('https://chatgptfree.ai/wp-admin/admin-ajax.php')}`, new URLSearchParams({
             action: 'aipkit_frontend_chat_message',
             _ajax_nonce: nonce[1],
@@ -54,7 +52,7 @@ async function aichat(question, { model = 'gpt-5-nano' } = {}) {
                 'user-agent': 'Mozilla/5.0 (Linux; Android 15; SM-F958 Build/AP3A.240905.015) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36'
             }
         });
-        
+        \n
         return data.data.content.data.reply;
     } catch (error) {
         throw new Error(error.message);
