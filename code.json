@@ -32,5 +32,16 @@
     "month": "October 2025",
     "createdAt": "2025-10-16T14:00:00.000Z",
     "updatedAt": "2025-10-16T14:00:00.000Z"
+  },
+    {
+    "id": "ai-chat",
+    "title": "AI Chat",
+    "fileName": "ai-chat.js",
+    "baseUrl": "https://testing",
+    "code": "console.log('AI Chat Snippet');",
+    "tags": ["testimg", "downloader"],
+    "month": "November 2025",
+    "createdAt": "2025-10-18T09:00:00.000Z",
+    "updatedAt": "2025-10-18T09:00:00.000Z"
   }
 ]
