@@ -1,16 +1,17 @@
 
 [
-  { "id": "1", "name": "ai" },
-  { "id": "2", "name": "scrape" },
-  { "id": "3", "name": "detail" },
-  { "id": "4", "name": "downloader" },
-  { "id": "5", "name": "func" },
-  { "id": "6", "name": "api" },
-  { "id": "7", "name": "database" },
-  { "id": "8", "name": "frontend" },
-  { "id": "9", "name": "backend" },
-  { "id": "10", "name": "auth" },
-  { "id": "11", "name": "utils" },
-  { "id": "12", "name": "testing" },
-  { "id": "13", "name": "devops" }
+  { "id": "1", "name": "Ai" },
+  { "id": "2", "name": "Anime" },
+  { "id": "3", "name": "Manga" },
+  { "id": "4", "name": "Donghua" },
+  { "id": "5", "name": "Manwha" },
+  { "id": "6", "name": "Downloader" },
+  { "id": "7", "name": "Stalk" },
+  { "id": "8", "name": "Detail" },
+  { "id": "9", "name": "Maker" },
+  { "id": "10", "name": "Fun" },
+  { "id": "11", "name": "Search" },
+  { "id": "12", "name": "Tools" },
+  { "id": "13", "name": "News" },
+  { "id": "14", "name": "More" }
 ]
