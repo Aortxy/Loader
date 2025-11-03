@@ -36,10 +36,10 @@
     {
     "id": "ai-chat",
     "title": "AI Chat",
-    "fileName": "ai-chat.js",
+    "fileName": "ronal.py",
     "baseUrl": "https://testing",
     "code": "console.log('AI Chat Snippet');",
-    "tags": ["testimg", "downloader"],
+    "tags": ["Manga", "Downloader"],
     "month": "November 2025",
     "createdAt": "2025-10-18T09:00:00.000Z",
     "updatedAt": "2025-10-18T09:00:00.000Z"
